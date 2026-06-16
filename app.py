@@ -73,11 +73,14 @@ def dashboard():
 
         st.write("Complete these tasks and earn points 🏆")
 
-        if st.button("🌳 Plant a Tree (+50 Points)"):
+       if st.button("🌳 Plant a Tree (+50 Points)"):
 
-            st.success("🌳 Tree planted! You earned 50 points")
+    update_points(
+        st.session_state.user,
+        50
+    )
 
-
+    st.success("You earned 50 points")
         if st.button("💡 Save Electricity (+20 Points)"):
 
             st.success("💡 Electricity saved! You earned 20 points")
