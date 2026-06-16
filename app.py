@@ -133,17 +133,15 @@ def dashboard():
 
         users = get_all_users()
 
-        if users:
+      if "login" not in st.session_state:
+    st.session_state.login = False
 
-            st.write("👥 Registered Users")
 
-            st.table(users)
+if "user" not in st.session_state:
+    st.session_state.user = ""
 
-        else:
 
-            st.info("No users found")
-
-        if st.session_state.login:
+if st.session_state.login:
 
     dashboard()
 
