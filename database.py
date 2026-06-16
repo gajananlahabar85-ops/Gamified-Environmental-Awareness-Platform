@@ -93,22 +93,16 @@ def register_user(username,email,password):
 
 
 
-def get_all_users():
+def get_user(username):
+    # example dummy database logic
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
 
-    conn = sqlite3.connect("users.db")
-    c = conn.cursor()
-
-    c.execute(
-        "SELECT username,email,points,level,badge FROM users"
-    )
-
-    data = c.fetchall()
+    cursor.execute("SELECT * FROM users WHERE username=?", (username,))
+    data = cursor.fetchone()
 
     conn.close()
-
     return data
-
-
 
 def update_points(username, points):
 
