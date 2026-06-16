@@ -17,6 +17,14 @@ def create_database():
     )
     """)
 
+    c.execute("""
+    CREATE TABLE IF NOT EXISTS challenges(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        points INTEGER
+    )
+    """)
+
     conn.commit()
     conn.close()
 
