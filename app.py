@@ -57,8 +57,7 @@ def dashboard():
         f"Welcome {st.session_state.user}"
     )
 
-
-    menu=st.sidebar.selectbox(
+    option = st.sidebar.selectbox(
         "Menu",
         [
             "Challenges",
@@ -69,29 +68,28 @@ def dashboard():
     )
 
 
-   if option == "Challenges":
+    if option == "Challenges":
 
-    st.subheader("🌳 Eco Challenges")
+        st.subheader("🌳 Eco Challenges")
+
+        if st.button("Plant a Tree 🌳 +50"):
+
+            update_points(
+                st.session_state.user,
+                50
+            )
+
+            st.success("Tree Challenge Completed +50 Points")
 
 
-    if st.button("Plant a Tree 🌳 +50"):
+        if st.button("Save Electricity ⚡ +20"):
 
-        update_points(
-            st.session_state.user,
-            50
-        )
+            update_points(
+                st.session_state.user,
+                20
+            )
 
-        st.success("Tree Challenge Completed +50 Points")
-
-
-    if st.button("Save Electricity ⚡ +20"):
-
-        update_points(
-            st.session_state.user,
-            20
-        )
-
-        st.success("Electricity Challenge Completed +20 Points")
+            st.success("Electricity Challenge Completed +20 Points")
 
     elif menu=="Quiz":
 
