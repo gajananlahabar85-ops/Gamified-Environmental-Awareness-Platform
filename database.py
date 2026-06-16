@@ -93,17 +93,16 @@ def register_user(username,email,password):
 
 
 
-def get_user(username):
+def get_all_users():
 
     conn = sqlite3.connect("users.db")
     c = conn.cursor()
 
     c.execute(
-        "SELECT * FROM users WHERE username=?",
-        (username,)
+        "SELECT username,email,points,level,badge FROM users"
     )
 
-    data = c.fetchone()
+    data = c.fetchall()
 
     conn.close()
 
