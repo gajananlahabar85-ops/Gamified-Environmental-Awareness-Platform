@@ -119,5 +119,3 @@ def update_points(username, points):
 
     conn.commit()
     conn.close()
-    conn.commit()
-    conn.close()
