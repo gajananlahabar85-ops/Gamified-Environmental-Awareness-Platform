@@ -125,15 +125,15 @@ def dashboard():
             st.write("Level:", user[4])
 
 
-    elif option == "Admin":
+   elif option == "Admin":
 
-        st.subheader("⚙️ Admin Panel")
+    st.subheader("⚙️ Admin Panel")
+    st.write("Welcome Admin")
 
-        st.write("Welcome Admin")
+    users = get_all_users()
 
-        users = get_all_users()
 
-      if "login" not in st.session_state:
+if "login" not in st.session_state:
     st.session_state.login = False
 
 
@@ -142,9 +142,6 @@ if "user" not in st.session_state:
 
 
 if st.session_state.login:
-
     dashboard()
-
 else:
-
     login()
