@@ -48,28 +48,6 @@ def create_admin():
 
 
 
-def register_user(username,email,password):
-
-    conn = sqlite3.connect("users.db")
-    c = conn.cursor()
-
-    try:
-        c.execute(
-            "INSERT INTO users(username,email,password) VALUES(?,?,?)",
-            (username,email,password)
-        )
-
-        conn.commit()
-        return True
-
-    except:
-        return False
-
-    finally:
-        conn.close()
-
-
-
 def login_user(username,password):
 
     conn = sqlite3.connect("users.db")
@@ -88,6 +66,27 @@ def login_user(username,password):
 
 
 
+def register_user(username,email,password):
+
+    conn = sqlite3.connect("users.db")
+    c = conn.cursor()
+
+    try:
+        c.execute(
+            "INSERT INTO users(username,email,password) VALUES(?,?,?)",
+            (username,email,password)
+        )
+        conn.commit()
+        return True
+
+    except:
+        return False
+
+    finally:
+        conn.close()
+
+
+
 def get_user(username):
 
     conn = sqlite3.connect("users.db")
@@ -102,9 +101,11 @@ def get_user(username):
 
     conn.close()
 
+    return data
 
 
-    def update_points(username, points):
+
+def update_points(username, points):
 
     conn = sqlite3.connect("users.db")
     c = conn.cursor()
@@ -113,28 +114,10 @@ def get_user(username):
         """
         UPDATE users
         SET points = points + ?
-        WHERE username = ?
+        WHERE username=?
         """,
         (points, username)
     )
 
-    # Level update
-    c.execute(
-        """
-        UPDATE users
-        SET level =
-        CASE
-            WHEN points >= 200 THEN 'Earth Protector'
-            WHEN points >= 100 THEN 'Green Champion'
-            WHEN points >= 50 THEN 'Eco Warrior'
-            ELSE 'Beginner'
-        END
-        WHERE username = ?
-        """,
-        (username,)
-    )
-
     conn.commit()
     conn.close()
-    
-    return data
