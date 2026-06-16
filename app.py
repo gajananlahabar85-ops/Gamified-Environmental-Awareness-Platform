@@ -1,173 +1,141 @@
 import streamlit as st
+from database import *
 
 
-# ---------------- LOGIN SYSTEM ----------------
+create_database()
+
 
 if "login" not in st.session_state:
-    st.session_state.login = False
-
-if "points" not in st.session_state:
-    st.session_state.points = 0
+    st.session_state.login=False
 
 
-def login_page():
+if "user" not in st.session_state:
+    st.session_state.user=""
+
+
+st.set_page_config(
+    page_title="Eco Platform",
+    page_icon="🌱"
+)
+
+
+
+def login():
 
     st.title("🌱 Eco Awareness Platform")
 
     st.subheader("🔐 Login")
 
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
+    username=st.text_input("Username")
+    password=st.text_input(
+        "Password",
+        type="password"
+    )
+
 
     if st.button("Login"):
 
-        if username == "admin" and password == "1234":
-            st.session_state.login = True
+        user=login_user(username,password)
+
+        if user:
+
+            st.session_state.login=True
+            st.session_state.user=username
+
             st.success("Login Successful")
             st.rerun()
 
         else:
-            st.error("Invalid Username or Password")
+            st.error("Invalid Login")
 
-
-
-# ---------------- DASHBOARD ----------------
 
 
 def dashboard():
 
-    st.title("🌍 Eco Awareness Dashboard")
+    st.title("🌍 Eco Dashboard")
 
-    st.write("Welcome to the Environmental Awareness Platform")
+    st.success(
+        f"Welcome {st.session_state.user}"
+    )
 
-    st.sidebar.title("Menu")
 
-    option = st.sidebar.selectbox(
-        "Choose Option",
+    menu=st.sidebar.selectbox(
+        "Menu",
         [
-            "Eco Challenges",
-            "Environmental Quiz",
-            "Rewards",
-            "Leaderboard"
+            "Challenges",
+            "Quiz",
+            "Profile",
+            "Admin"
         ]
     )
 
 
-    # Challenges
+    if menu=="Challenges":
 
-    if option == "Eco Challenges":
-
-        st.subheader("🌱 Complete Eco Challenges")
-
-        challenge = st.checkbox(
-            "Plant a Tree 🌳 (+50 points)"
-        )
-
-        if challenge:
-            st.session_state.points += 50
+        st.subheader("🌳 Eco Challenges")
 
 
-        challenge2 = st.checkbox(
-            "Save Electricity ⚡ (+20 points)"
-        )
-
-        if challenge2:
-            st.session_state.points += 20
+        if st.button("Plant a Tree +50"):
+            st.success("Points Added")
 
 
-        challenge3 = st.checkbox(
-            "Avoid Plastic Bags 🛍️ (+30 points)"
-        )
-
-        if challenge3:
-            st.session_state.points += 30
-
-
-        st.success(
-            f"Your Points: {st.session_state.points}"
-        )
+        if st.button("Save Electricity +20"):
+            st.success("Points Added")
 
 
 
-    # Quiz
+    elif menu=="Quiz":
 
-    elif option == "Environmental Quiz":
+        st.subheader("🌎 Quiz")
 
-        st.subheader("🌎 Environmental Quiz")
-
-
-        q1 = st.radio(
-            "Which energy source is renewable?",
+        q=st.radio(
+            "Renewable Energy?",
             [
                 "Coal",
-                "Solar Energy",
+                "Solar",
                 "Petrol"
             ]
         )
 
 
-        if st.button("Submit Quiz"):
+        if st.button("Submit"):
 
-            if q1 == "Solar Energy":
-                st.success("Correct Answer! +20 Points")
-                st.session_state.points += 20
+            if q=="Solar":
+                st.success("Correct +20 Points")
 
             else:
-                st.error("Wrong Answer")
+                st.error("Wrong")
 
 
 
-    # Rewards
+    elif menu=="Profile":
 
-    elif option == "Rewards":
+        data=get_user(
+            st.session_state.user
+        )
 
-        st.subheader("🏆 Your Rewards")
+        st.subheader("👤 Profile")
 
-        points = st.session_state.points
-
-
-        if points >= 100:
-            st.success("🌳 Green Champion Badge")
-
-        elif points >= 50:
-            st.info("🌱 Eco Warrior Badge")
-
-        else:
-            st.warning("Complete challenges to earn badges")
+        st.write("Username:",data[0])
+        st.write("Email:",data[1])
+        st.write("Points:",data[3])
+        st.write("Level:",data[4])
+        st.write("Badge:",data[5])
 
 
 
-    # Leaderboard
+    elif menu=="Admin":
 
-    elif option == "Leaderboard":
+        st.subheader("⚙ Admin Panel")
 
-        st.subheader("🏆 Leaderboard")
+        st.info(
+            "Admin features coming soon"
+        )
 
-        data = {
-            "User": [
-                "You",
-                "Rahul",
-                "Priya"
-            ],
-
-            "Points": [
-                st.session_state.points,
-                120,
-                100
-            ]
-        }
-
-        st.table(data)
-
-
-
-# ---------------- MAIN ----------------
 
 
 if st.session_state.login:
-
     dashboard()
 
 else:
-
-    login_page()
+    login()
