@@ -57,91 +57,64 @@ def dashboard():
         f"Welcome {st.session_state.user}"
     )
 
-   option = st.sidebar.selectbox(
-    "Menu",
-    [
-        "Challenges",
-        "Quiz",
-        "Profile",
-        "Admin"
-    ]
-)
 
-
-# Challenges
-
-if option == "Challenges":
-
-    st.subheader("🌳 Eco Challenges")
-
-    if st.button("Plant a Tree 🌳 +50"):
-
-        update_points(
-            st.session_state.user,
-            50
-        )
-
-        st.success("Tree Challenge Completed")
-
-
-# Quiz
-
-elif option == "Quiz":
-
-    st.subheader("🌎 Environmental Quiz")
-
-    answer = st.radio(
-        "Which is renewable energy?",
+    option = st.sidebar.selectbox(
+        "Menu",
         [
-            "Coal",
-            "Solar Energy",
-            "Petrol"
+            "Challenges",
+            "Quiz",
+            "Profile",
+            "Admin"
         ]
     )
 
-    if st.button("Submit Quiz"):
 
-        if answer == "Solar Energy":
+    if option == "Challenges":
 
-            update_points(
-                st.session_state.user,
-                20
-            )
+        st.subheader("🌳 Eco Challenges")
 
-            st.success("Correct Answer +20 Points")
-
-        else:
-            st.error("Wrong Answer")
+        st.write("Complete tasks and earn points")
 
 
-# Profile
+    elif option == "Quiz":
 
-elif option == "Profile":
+        st.subheader("🌎 Environmental Quiz")
 
-    st.subheader("👤 Profile")
+        answer = st.radio(
+            "Which is renewable energy?",
+            [
+                "Coal",
+                "Solar Energy",
+                "Petrol"
+            ]
+        )
 
-    user = get_user(
-        st.session_state.user
-    )
+        if st.button("Submit"):
 
-    if user:
+            if answer == "Solar Energy":
+                st.success("Correct Answer")
 
-        st.write("Username:", user[0])
-        st.write("Email:", user[1])
-        st.write("Points:", user[3])
-        st.write("Level:", user[4])
-        st.write("Badge:", user[5])
-
-    else:
-        st.error("User not found")
+            else:
+                st.error("Wrong Answer")
 
 
-# Admin
+    elif option == "Profile":
 
-elif option == "Admin":
+        st.subheader("👤 Profile")
 
-    st.subheader("⚙ Admin Panel")
+        user = get_user(
+            st.session_state.user
+        )
 
-    st.info("Admin Panel Active")
+        if user:
+            st.write("Username:", user[0])
+            st.write("Email:", user[1])
+            st.write("Points:", user[3])
+            st.write("Level:", user[4])
 
-    st.write("Add Quiz and Challenges here")
+
+    elif option == "Admin":
+
+        st.subheader("⚙ Admin Panel")
+
+        st.info("Admin Panel Ready")
