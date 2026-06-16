@@ -69,30 +69,29 @@ def dashboard():
     )
 
 
-    if menu=="Challenges":
+   if option == "Challenges":
 
-        st.subheader("🌳 Eco Challenges")
-
-
-        if st.button("Plant a Tree 🌳 +50"):
-
-    update_points(
-        st.session_state.user,
-        50
-    )
-
-    st.success("Tree Challenge Completed +50 Points")
+    st.subheader("🌳 Eco Challenges")
 
 
-if st.button("Save Electricity ⚡ +20"):
+    if st.button("Plant a Tree 🌳 +50"):
 
-    update_points(
-        st.session_state.user,
-        20
-    )
+        update_points(
+            st.session_state.user,
+            50
+        )
 
-    st.success("Electricity Challenge Completed +20 Points")
+        st.success("Tree Challenge Completed +50 Points")
 
+
+    if st.button("Save Electricity ⚡ +20"):
+
+        update_points(
+            st.session_state.user,
+            20
+        )
+
+        st.success("Electricity Challenge Completed +20 Points")
 
     elif menu=="Quiz":
 
