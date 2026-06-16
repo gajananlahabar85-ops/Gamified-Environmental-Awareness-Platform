@@ -102,4 +102,39 @@ def get_user(username):
 
     conn.close()
 
+
+
+    def update_points(username, points):
+
+    conn = sqlite3.connect("users.db")
+    c = conn.cursor()
+
+    c.execute(
+        """
+        UPDATE users
+        SET points = points + ?
+        WHERE username = ?
+        """,
+        (points, username)
+    )
+
+    # Level update
+    c.execute(
+        """
+        UPDATE users
+        SET level =
+        CASE
+            WHEN points >= 200 THEN 'Earth Protector'
+            WHEN points >= 100 THEN 'Green Champion'
+            WHEN points >= 50 THEN 'Eco Warrior'
+            ELSE 'Beginner'
+        END
+        WHERE username = ?
+        """,
+        (username,)
+    )
+
+    conn.commit()
+    conn.close()
+    
     return data
