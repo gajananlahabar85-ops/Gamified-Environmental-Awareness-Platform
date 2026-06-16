@@ -3,7 +3,7 @@ from database import *
 
 
 create_database()
-
+create_admin()
 
 if "login" not in st.session_state:
     st.session_state.login=False
