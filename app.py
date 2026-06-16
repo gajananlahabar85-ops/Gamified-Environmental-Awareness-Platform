@@ -118,3 +118,9 @@ def dashboard():
         st.subheader("⚙ Admin Panel")
 
         st.info("Admin Panel Ready")
+
+if st.session_state.login:
+    dashboard()
+
+else:
+    login()
