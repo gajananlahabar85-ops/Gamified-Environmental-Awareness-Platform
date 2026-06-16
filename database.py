@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def create_admin():
+def create_database():
 
     conn = sqlite3.connect("users.db")
     c = conn.cursor()
@@ -82,3 +82,29 @@ def get_user(username):
     conn.close()
 
     return data
+
+
+
+def create_admin():
+
+    conn = sqlite3.connect("users.db")
+    c = conn.cursor()
+
+    c.execute(
+        """
+        INSERT OR IGNORE INTO users
+        (username,email,password,points,level,badge)
+        VALUES(?,?,?,?,?,?)
+        """,
+        (
+            "admin",
+            "admin@gmail.com",
+            "1234",
+            0,
+            "Beginner",
+            "None"
+        )
+    )
+
+    conn.commit()
+    conn.close()
