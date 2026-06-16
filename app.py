@@ -54,69 +54,48 @@ def dashboard():
 
     option = st.sidebar.selectbox(
         "Menu",
-        [
-            "Challenges",
-            "Quiz",
-            "Profile",
-            "Admin"
-        ]
+        ["Challenges", "Quiz", "Profile", "Admin"]
     )
 
+    # ---------------- CHALLENGES ----------------
     if option == "Challenges":
 
         st.subheader("🌱 Eco Challenges")
-
         st.write("Complete tasks and earn points 🏆")
 
         if st.button("🌳 Plant a Tree (+50 Points)"):
-
             st.success("🌳 You earned 50 points")
 
         if st.button("💡 Save Electricity (+20 Points)"):
-
-            update_points(
-                st.session_state.user,
-                20
-            )
-
+            update_points(st.session_state.user, 20)
             st.success("⚡ You earned 20 points")
-    if st.button("♻️ Recycle Plastic (+30 Points)"):
 
-        update_points(
-            st.session_state.user,
-            30
-        )
+        if st.button("♻️ Recycle Plastic (+30 Points)"):
+            update_points(st.session_state.user, 30)
+            st.success("♻️ Recycling completed! You earned 30 points")
 
-        st.success("♻️ Recycling completed! You earned 30 points")
+    # ---------------- QUIZ ----------------
     elif option == "Quiz":
 
         st.subheader("🌎 Environmental Quiz")
 
         answer = st.radio(
             "Which is renewable energy?",
-            [
-                "Coal",
-                "Solar Energy",
-                "Petrol"
-            ]
+            ["Coal", "Solar Energy", "Petrol"]
         )
 
         if st.button("Submit"):
-
             if answer == "Solar Energy":
                 st.success("Correct Answer")
-
             else:
                 st.error("Wrong Answer")
 
-
+    # ---------------- PROFILE ----------------
     elif option == "Profile":
 
         st.subheader("👤 Profile")
 
-        user = get_user(
-            st.session_state.user
-        )
+        user = get_user(st.session_state.user)
 
         if user:
             st.write("Username:", user[0])
@@ -124,24 +103,23 @@ def dashboard():
             st.write("Points:", user[3])
             st.write("Level:", user[4])
 
+    # ---------------- ADMIN ----------------
+    elif option == "Admin":
 
-     elif option == "Admin":
+        st.subheader("⚙️ Admin Panel")
+        st.write("Welcome Admin")
 
-    st.subheader("⚙️ Admin Panel")
-    st.write("Welcome Admin")
-
-    users = get_all_users()
+        users = get_all_users()
 
 
-# 👉 session_state always OUTSIDE (global level)
+# ---------------- GLOBAL SESSION STATE ----------------
 if "login" not in st.session_state:
     st.session_state.login = False
 
 if "user" not in st.session_state:
     st.session_state.user = ""
 
-
-# 👉 main login check also OUTSIDE
+# ---------------- APP FLOW ----------------
 if st.session_state.login:
     dashboard()
 else:
