@@ -1,6 +1,4 @@
-import streamlit as st
-from database import create_database, create_admin, login_user, register_user, get_user
-
+from database import *
 create_database()
 create_admin()
 
