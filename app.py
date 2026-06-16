@@ -125,41 +125,20 @@ def dashboard():
             st.write("Level:", user[4])
 
 
-   elif option == "Admin":
+       elif option == "Admin":
 
-    st.subheader("⚙️ Admin Panel")
+        st.subheader("⚙️ Admin Panel")
 
-    st.write("Welcome Admin")
+        st.write("Welcome Admin")
 
-    users = get_all_users()
+        users = get_all_users()
 
-    if users:
+        if users:
 
-        st.write("👥 Registered Users")
+            st.write("👥 Registered Users")
 
-        st.table(
-            users
-        )
+            st.table(users)
 
-    else:
+        else:
 
-        st.info("No users found")
-
-
-    st.subheader("➕ Add Challenge")
-
-    challenge = st.text_input(
-        "Challenge Name"
-    )
-
-    points = st.number_input(
-        "Points",
-        min_value=1
-    )
-
-
-    if st.button("Add Challenge"):
-
-        st.success(
-            f"{challenge} added with {points} points"
-        )
+            st.info("No users found")
