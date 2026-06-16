@@ -112,10 +112,12 @@ def update_points(username, points):
         """
         UPDATE users
         SET points = points + ?
-        WHERE username=?
+        WHERE username = ?
         """,
         (points, username)
     )
 
+    conn.commit()
+    conn.close()
     conn.commit()
     conn.close()
