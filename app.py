@@ -67,24 +67,31 @@ def dashboard():
     )
 
 
-    if option == "Challenges":
+       if option == "Challenges":
 
         st.subheader("🌱 Eco Challenges")
 
-        st.write("Complete these tasks and earn points 🏆")
+        st.write("Complete tasks and earn points 🏆")
 
-       if st.button("🌳 Plant a Tree (+50 Points)"):
 
-    update_points(
-        st.session_state.user,
-        50
-    )
+        if st.button("🌳 Plant a Tree (+50 Points)"):
 
-    st.success("You earned 50 points")
+            update_points(
+                st.session_state.user,
+                50
+            )
+
+            st.success("🌳 You earned 50 points")
+
+
         if st.button("💡 Save Electricity (+20 Points)"):
 
-            st.success("💡 Electricity saved! You earned 20 points")
+            update_points(
+                st.session_state.user,
+                20
+            )
 
+            st.success("⚡ You earned 20 points")
     if st.button("♻️ Recycle Plastic (+30 Points)"):
 
         update_points(
