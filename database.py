@@ -1,4 +1,4 @@
-import sqlite3
+from database import get_user, update_points, get_all_users
 
 
 def create_database():
