@@ -1,3 +1,5 @@
+st.title("🌱 Gamified Environmental Awareness Platform")
+st.write("App is Running")
 import streamlit as st
 from database import *
 
