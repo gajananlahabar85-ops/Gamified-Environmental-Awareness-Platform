@@ -1,8 +1,6 @@
 import streamlit as st
 from database import *
 
-st.title("🌱 Gamified Environmental Awareness Platform")
-
 create_database()
 create_admin()
 if "login" not in st.session_state:
