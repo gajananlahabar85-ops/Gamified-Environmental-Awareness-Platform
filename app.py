@@ -125,7 +125,7 @@ def dashboard():
             st.write("Level:", user[4])
 
 
-       elif option == "Admin":
+    elif option == "Admin":
 
         st.subheader("⚙️ Admin Panel")
 
