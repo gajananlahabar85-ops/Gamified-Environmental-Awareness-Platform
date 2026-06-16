@@ -1,21 +1,26 @@
 import sqlite3
 
 
-def create_database():
+def create_admin():
 
     conn = sqlite3.connect("users.db")
     c = conn.cursor()
 
-    c.execute("""
-    CREATE TABLE IF NOT EXISTS users(
-        username TEXT PRIMARY KEY,
-        email TEXT,
-        password TEXT,
-        points INTEGER DEFAULT 0,
-        level TEXT DEFAULT 'Beginner',
-        badge TEXT DEFAULT 'None'
+    c.execute(
+        """
+        INSERT OR IGNORE INTO users
+        (username,email,password,points,level,badge)
+        VALUES(?,?,?,?,?,?)
+        """,
+        (
+            "admin",
+            "admin@gmail.com",
+            "1234",
+            0,
+            "Beginner",
+            "None"
+        )
     )
-    """)
 
     conn.commit()
     conn.close()
