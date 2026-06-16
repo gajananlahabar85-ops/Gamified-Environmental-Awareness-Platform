@@ -142,3 +142,11 @@ def dashboard():
         else:
 
             st.info("No users found")
+
+        if st.session_state.login:
+
+    dashboard()
+
+else:
+
+    login()
